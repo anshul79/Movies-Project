@@ -1,0 +1,17 @@
+{
+  "name": "movies",
+  "version": "1.0.0",
+  "description": "movies project",
+  "main": "index.js",
+  "scripts": {
+    "test": "movies test",
+    "start": "node index.js"
+  },
+  "author": "anshul jain",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "git": "^0.1.5",
+    "node": "^13.8.0"
+  }
+}
