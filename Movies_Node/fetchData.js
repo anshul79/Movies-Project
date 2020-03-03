@@ -1,22 +1,36 @@
+const axios = require('axios');
+
+const api_key = 'b94995f446a2fd7af094ccd95b8cfc2b';
+const language = 'en-US';
+
 module.exports = class fetchData {
-    static getRegion (req, res) {
-        res.status(200).send("List of regions is here")
+    static getRegions (req, res) {
+        res.status(200).send("List of regions is here");
     }
 
-    static getPopular(req, res) {
-        res.status(200).send("Popular movies are here");
-    }
-
-    static getTopRated(req, res) {
-        res.status(200).send("Top rated movies are here");
-    }
-
-    static getUpcoming(req, res) {
-        res.status(200).send("Upcoming movies are here");
-    }
-
-    static getNowPlaying(req, res) {
-        res.status(200).send("Now Playing moving are here");
+    /**
+     * API call for fetching movies of a certain type based on region
+     * Url Param 'type' : Possible values - 'popular', 'top_rated', 'upcoming', 'now_playing'
+     * Query Param 'region': region code based on ISO 3166-1 alpha-2 format
+     * Example: http://localhost:8080/getMovies/popular?region=IN
+     */
+    static getMovies(req, res) {
+        var type = req.params.type;
+        var region = req.query.region;
+        console.log('Fetching ' + type + ' Movies of ' + region);
+        axios.get('https://api.themoviedb.org/3/movie/' + type, {
+            params: {
+                api_key,
+                language,
+                region
+            }
+        })
+        .then(function(resp) {
+            res.status(200).send(resp.data);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
     }
 
     static getMovieData(req, res) {

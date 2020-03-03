@@ -5,11 +5,8 @@ const port = process.env.NODE_PORT || 8080;
 // import { fetchData } from './fetchData.js'; // ECMAScript modules
 const fetchData = require('./fetchData.js');
 
-app.get('/getRegion', fetchData.getRegion);
-app.get('/getPopular', fetchData.getPopular);
-app.get('/getTopRated', fetchData.getTopRated);
-app.get('/getUpcoming', fetchData.getUpcoming);
-app.get('/getNowPlaying', fetchData.getNowPlaying);
+app.get('/getRegions', fetchData.getRegions);
+app.get('/getMovies/:type', fetchData.getMovies);
 app.get('/getMovieData/movieId', fetchData.getMovieData);
 app.get('/getImages/movieId', fetchData.getImages);
 app.get('/getVideos/movieId', fetchData.getVideos);

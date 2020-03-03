@@ -10,6 +10,7 @@
   "author": "anshul jain",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "^4.17.1",
     "git": "^0.1.5",
     "node": "^13.8.0"
