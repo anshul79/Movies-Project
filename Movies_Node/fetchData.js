@@ -44,7 +44,7 @@ module.exports = class fetchData {
      */
     static getMovieDetails(req, res) {
         var movieId = req.params.movieId;
-        var media = req.query.media ? req.query.media : 'videos,images';
+        var media = req.query.media;
         console.log('Fetching detailed info of movie ' + movieId);
         axios.get('https://api.themoviedb.org/3/movie/' + movieId, {
             params: {
