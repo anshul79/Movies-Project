@@ -12,7 +12,7 @@ module.exports = class fetchData {
      * API call for fetching movies of a certain type based on region
      * Url Param 'type' : Possible values - 'popular', 'top_rated', 'upcoming', 'now_playing'
      * Query Param 'region' (Optional): region code based on ISO 3166-1 alpha-2 format
-     * * Query Param 'page' (Optional): page number for fetching movies
+     * Query Param 'page' (Optional): page number for fetching movies
      * Example: http://localhost:8080/getMovies/popular?region=IN&page=2
      */
     static getMovies(req, res) {
@@ -38,12 +38,13 @@ module.exports = class fetchData {
 
     /**
      * API call for fetching detailed info of movie based on id
-     * 'append_to_response' : Loads additional data like 'videos,images'
-     * Example: http://localhost:8080/getMovieDetails/278
+     * Url Param 'movieId' : Accepts an integer value
+     * Query Param 'media' (Optional): Comma separated values, e.g. 'videos,images'
+     * Example: http://localhost:8080/getMovieDetails/278?media=videos,images
      */
     static getMovieDetails(req, res) {
         var movieId = req.params.movieId;
-        var media = 'videos,images';
+        var media = req.query.media ? req.query.media : 'videos,images';
         console.log('Fetching detailed info of movie ' + movieId);
         axios.get('https://api.themoviedb.org/3/movie/' + movieId, {
             params: {
@@ -64,8 +65,29 @@ module.exports = class fetchData {
         res.status(200).send("Trailer for a movie is here");
     }
 
+    /**
+     * API call for fetching recommendations for movie based on id
+     * Url Param 'movieId' : Accepts an integer value
+     * Query Param 'page' (Optional): page number for fetching recommendations
+     * Example: http://localhost:8080/getRecommendations/278?page=2
+     */
     static getRecommendations(req, res) {
-        res.status(200).send("Recommendations for a movie are here");
+        var movieId = req.params.movieId;
+        var page = req.query.page;
+        console.log('Fetching recommendations for movie ' + movieId);
+        axios.get('https://api.themoviedb.org/3/movie/' + movieId + '/recommendations', {
+            params: {
+                api_key,
+                language,
+                page
+            }
+        })
+        .then(function(resp) {
+            res.status(200).send(resp.data);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
     }
 
     static getLatestMovies(req, res) {
