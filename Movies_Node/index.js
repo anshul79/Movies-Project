@@ -7,9 +7,7 @@ const fetchData = require('./fetchData.js');
 
 app.get('/getRegions', fetchData.getRegions);
 app.get('/getMovies/:type', fetchData.getMovies);
-app.get('/getMovieData/movieId', fetchData.getMovieData);
-app.get('/getImages/movieId', fetchData.getImages);
-app.get('/getVideos/movieId', fetchData.getVideos);
+app.get('/getMovieDetails/:movieId', fetchData.getMovieDetails);
 app.get('/getTrailer/movieId', fetchData.getTrailer);
 app.get('/getRecommendations/movieId', fetchData.getRecommendations);
 app.get('/getLatestMovies', fetchData.getLatestMovies);   // ?order=asec/desc

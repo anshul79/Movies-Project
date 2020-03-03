@@ -33,16 +33,28 @@ module.exports = class fetchData {
         });
     }
 
-    static getMovieData(req, res) {
-        res.status(200).send("The detailed movie info is here");
-    }
-
-    static getImages(req, res) {
-        res.status(200).send("Images for a movie are here");
-    }
-
-    static getVideos(req, res) {
-        res.status(200).send("Videos for a movie are here");
+    /**
+     * API call for fetching detailed info of movie based on id
+     * 'append_to_response' : Loads additional data like 'videos,images'
+     * Example: http://localhost:8080/getMovieDetails/278
+     */
+    static getMovieDetails(req, res) {
+        var movieId = req.params.movieId;
+        var media = 'videos,images';
+        console.log('Fetching detailed info of movie ' + movieId);
+        axios.get('https://api.themoviedb.org/3/movie/' + movieId, {
+            params: {
+                api_key,
+                language,
+                append_to_response: media
+            }
+        })
+        .then(function(resp) {
+            res.status(200).send(resp.data);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
     }
 
     static getTrailer(req, res) {
