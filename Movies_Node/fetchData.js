@@ -11,18 +11,21 @@ module.exports = class fetchData {
     /**
      * API call for fetching movies of a certain type based on region
      * Url Param 'type' : Possible values - 'popular', 'top_rated', 'upcoming', 'now_playing'
-     * Query Param 'region': region code based on ISO 3166-1 alpha-2 format
-     * Example: http://localhost:8080/getMovies/popular?region=IN
+     * Query Param 'region' (Optional): region code based on ISO 3166-1 alpha-2 format
+     * * Query Param 'page' (Optional): page number for fetching movies
+     * Example: http://localhost:8080/getMovies/popular?region=IN&page=2
      */
     static getMovies(req, res) {
         var type = req.params.type;
         var region = req.query.region;
+        var page = req.query.page;
         console.log('Fetching ' + type + ' Movies of ' + region);
         axios.get('https://api.themoviedb.org/3/movie/' + type, {
             params: {
                 api_key,
                 language,
-                region
+                region,
+                page
             }
         })
         .then(function(resp) {
