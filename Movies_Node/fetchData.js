@@ -1,11 +1,13 @@
 const axios = require('axios');
+const countryList = require('country-list');
 
 const api_key = 'b94995f446a2fd7af094ccd95b8cfc2b';
 const language = 'en-US';
 
 module.exports = class fetchData {
     static getRegions (req, res) {
-        res.status(200).send("List of regions is here");
+        var list = countryList.getNameList();
+        res.status(200).send(list);
     }
 
     /**
@@ -59,10 +61,6 @@ module.exports = class fetchData {
         .catch(function(err) {
             console.log(err);
         });
-    }
-
-    static getTrailer(req, res) {
-        res.status(200).send("Trailer for a movie is here");
     }
 
     /**
