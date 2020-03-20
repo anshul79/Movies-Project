@@ -2,15 +2,15 @@ const express = require('express');
 const app = express();
 const port = process.env.NODE_PORT || 8080;
 
-// import { fetchData } from './fetchData.js'; // ECMAScript modules
-const fetchData = require('./fetchData.js');
+// import { MoviesData } from './moviesData.js'; // ECMAScript modules
+const MoviesData = require('./moviesData.js');
 
-app.get('/getRegions', fetchData.getRegions);
-app.get('/getMovies/:type', fetchData.getMovies);
-app.get('/getMovieDetails/:movieId', fetchData.getMovieDetails);
-app.get('/getRecommendations/:movieId', fetchData.getRecommendations);
-app.get('/getLatestMovies', fetchData.getLatestMovies);   // ?order=asec/desc
-app.get('/', fetchData.getDefaultResponse);   // default response
+app.get('/getRegions', MoviesData.getRegions);
+app.get('/getMoviesList/:type', MoviesData.getMoviesList);
+app.get('/getMovieDetails/:movieId', MoviesData.getMovieDetails);
+app.get('/getRecommendations/:movieId', MoviesData.getRecommendations);
+app.get('/getLatestMovies', MoviesData.getLatestMovies);   // ?order=asec/desc
+app.get('/', MoviesData.getDefaultResponse);   // default response
 
 app.listen(port, () => {
     console.log('Server is listening on port ' + port);

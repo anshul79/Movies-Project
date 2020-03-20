@@ -1,10 +1,15 @@
 const axios = require('axios');
 const countryList = require('country-list');
+const constants = require('constants.js');
 
-const api_key = 'b94995f446a2fd7af094ccd95b8cfc2b';
-const language = 'en-US';
+const api_key = constants.API_KEY;
+const language = constants.LANGUAGE;
 
-module.exports = class fetchData {
+module.exports = class MoviesData {
+
+    /**
+     * API call to fetch the list of all countries with their codes
+     */
     static getRegions (req, res) {
         var list = countryList.getNameList();
         res.status(200).send(list);
@@ -17,7 +22,7 @@ module.exports = class fetchData {
      * Query Param 'page' (Optional): page number for fetching movies
      * Example: http://localhost:8080/getMovies/popular?region=IN&page=2
      */
-    static getMovies(req, res) {
+    static getMoviesList(req, res) {
         var type = req.params.type;
         var region = req.query.region;
         var page = req.query.page;
