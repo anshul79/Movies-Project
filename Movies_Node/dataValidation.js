@@ -1,4 +1,4 @@
-const constants = require('constants.js');
+const constants = require('./constants.js');
 
 module.exports = class DataValidation {
     
@@ -10,30 +10,33 @@ module.exports = class DataValidation {
     }
 
     static validateRegion(region) {
-        if(typeOf(region) != String || region.size() != 2) {
+        if((typeof region) != 'string' || region.length != 2) {
             return "";
         }
         return region;
     }
 
     static validatePage(page) {
-        if(typeOf(page) != Number) {
+        if((typeof page) != 'string') {
             return 1;
         }
         return page;
     }
 
     static validateMovieId(movieId) {
-        if(typeOf(movieId) != Number) {
+        if((typeof movieId) != 'string') {
             return 1;
         }
         return movieId;
     }
 
     static validateMedia(media) {
-        if(constants.MEDIA_NAMES.indexOf(media) == -1) {
-            return "";
-        }
-        return media;
+        var media = media.split(',');
+        for(var m in media) {
+            if(constants.MEDIA_NAMES.indexOf(media[m]) == -1) {
+                return "";
+            }
+        } 
+        return media.join(',');
     }
 }
