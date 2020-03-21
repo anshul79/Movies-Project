@@ -17,14 +17,14 @@ module.exports = class DataValidation {
     }
 
     static validatePage(page) {
-        if((typeof page) != 'string') {
+        if((typeof page) != 'string' || parseInt(page) != page) {
             return 1;
         }
         return page;
     }
 
     static validateMovieId(movieId) {
-        if((typeof movieId) != 'string') {
+        if((typeof movieId) != 'string' || parseInt(movieId) != movieId) {
             return 1;
         }
         return movieId;
