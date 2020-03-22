@@ -1,4 +1,4 @@
-const axios = require('axios');
+const { axiosRequestHandler } = require('./apiHandler.js');
 const countryList = require('country-list');
 const constants = require('./constants.js');
 const DataValidation = require('./dataValidation.js');
@@ -29,7 +29,7 @@ module.exports = class MoviesData {
         var region = DataValidation.validateRegion(req.query.region);
         var page = DataValidation.validatePage(req.query.page);
         console.log('Fetching ' + type + ' movies of ' + region + ' at page ' + page);
-        axios.get('https://api.themoviedb.org/3/movie/' + type, {
+        axiosRequestHandler.get('/movie/' + type, {
             params: {
                 api_key,
                 language,
@@ -55,7 +55,7 @@ module.exports = class MoviesData {
         var movieId = DataValidation.validateMovieId(req.params.movieId);
         var media = DataValidation.validateMedia(req.query.media);
         console.log('Fetching detailed info of movie ' + movieId + ' with ' + media);
-        axios.get('https://api.themoviedb.org/3/movie/' + movieId, {
+        axiosRequestHandler.get('/movie/' + movieId, {
             params: {
                 api_key,
                 language,
@@ -80,7 +80,7 @@ module.exports = class MoviesData {
         var movieId = DataValidation.validateMovieId(req.params.movieId);
         var page = DataValidation.validatePage(req.query.page);
         console.log('Fetching recommendations for movie ' + movieId + ' at page ' + page);
-        axios.get('https://api.themoviedb.org/3/movie/' + movieId + '/recommendations', {
+        axiosRequestHandler.get('/movie/' + movieId + '/recommendations', {
             params: {
                 api_key,
                 language,
