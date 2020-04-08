@@ -1,6 +1,6 @@
 const constants = require('./constants.js');
 
-module.exports = class DataValidation {
+module.exports = class DataValidator {
     
     static validateType(type) {
         if(constants.TYPE_NAMES.indexOf(type) == -1) {

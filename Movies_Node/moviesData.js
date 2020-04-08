@@ -1,7 +1,7 @@
 const { axiosRequestHandler } = require('./apiHandler.js');
 const countryList = require('country-list');
 const constants = require('./constants.js');
-const DataValidation = require('./dataValidation.js');
+const DataValidator = require('./DataValidator.js');
 
 const api_key = constants.API_KEY;
 const language = constants.LANGUAGE;
@@ -25,9 +25,9 @@ module.exports = class MoviesData {
      * Example: http://localhost:8080/getMoviesList/popular?region=IN&page=2
      */
     static getMoviesList(req, res) {
-        var type = DataValidation.validateType(req.params.type);
-        var region = DataValidation.validateRegion(req.query.region);
-        var page = DataValidation.validatePage(req.query.page);
+        var type = DataValidator.validateType(req.params.type);
+        var region = DataValidator.validateRegion(req.query.region);
+        var page = DataValidator.validatePage(req.query.page);
         console.log('Fetching ' + type + ' movies of ' + region + ' at page ' + page);
         axiosRequestHandler.get('/movie/' + type, {
             params: {
@@ -52,8 +52,8 @@ module.exports = class MoviesData {
      * Example: http://localhost:8080/getMovieDetails/278?media=videos,images
      */
     static getMovieDetails(req, res) {
-        var movieId = DataValidation.validateMovieId(req.params.movieId);
-        var media = DataValidation.validateMedia(req.query.media);
+        var movieId = DataValidator.validateMovieId(req.params.movieId);
+        var media = DataValidator.validateMedia(req.query.media);
         console.log('Fetching detailed info of movie ' + movieId + ' with ' + media);
         axiosRequestHandler.get('/movie/' + movieId, {
             params: {
@@ -77,8 +77,8 @@ module.exports = class MoviesData {
      * Example: http://localhost:8080/getRecommendations/278?page=2
      */
     static getRecommendations(req, res) {
-        var movieId = DataValidation.validateMovieId(req.params.movieId);
-        var page = DataValidation.validatePage(req.query.page);
+        var movieId = DataValidator.validateMovieId(req.params.movieId);
+        var page = DataValidator.validatePage(req.query.page);
         console.log('Fetching recommendations for movie ' + movieId + ' at page ' + page);
         axiosRequestHandler.get('/movie/' + movieId + '/recommendations', {
             params: {
